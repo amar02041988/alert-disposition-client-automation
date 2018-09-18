@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="alertDetailRowMapper" class="com.travelex.service.AlertDetailRowMapper" />
+
+	<bean id="pollingServiceDao" class="com.travelex.service.PollingServiceDaoImpl">
+		<property name="alertDetailRowMapper" ref="alertDetailRowMapper" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<bean id="duedilService" class="com.travelex.service.DuedilServiceImpl">
+		<property name="pollingServiceDao" ref="pollingServiceDao" />
+		<property name="restTemplate" ref="restTemplate" />
+		<property name="baseUri" value="${duedil.baseUri}" />
+		<property name="statusUri" value="${duedil.statusUri}" />
+	</bean>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="requestFactory" ref="httpRequestFactory" />
+	</bean>
+
+	<bean id="httpRequestFactory"
+		class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+		<property name="readTimeout" value="${duedil.readTimeout}" />
+		<property name="connectTimeout" value="${duedil.connectTimeout}" />
+	</bean>
+</beans>

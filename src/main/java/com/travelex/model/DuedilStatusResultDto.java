@@ -33,4 +33,9 @@ public class DuedilStatusResultDto {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "DuedilStatusResultDto [ticketId=" + ticketId + ", status=" + status + "]";
+    }
+
 }

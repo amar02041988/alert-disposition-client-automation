@@ -4,5 +4,5 @@ import com.travelex.model.AlertDetail;
 
 public interface DuedilService {
 
-    public void checkStatus(AlertDetail alertDetail);
+    public void checkStatus(AlertDetail alertDetail) throws Exception;
 }

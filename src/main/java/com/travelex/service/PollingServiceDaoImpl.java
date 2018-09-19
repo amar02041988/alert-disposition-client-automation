@@ -34,7 +34,7 @@ public class PollingServiceDaoImpl implements PollingServiceDao {
                         "select LINE_NO, ALERT_ID, STATUS, DATE_TIME from ALERT_DETAILS where STATUS='UNCONFIRMED'",
                         alertDetailRowMapper)).orElseGet(() -> new ArrayList<AlertDetail>());
 
-        LOGGER.info("Total no. of PENDING alert ids: " + alertDetails.size());
+        LOGGER.info("Total no. of UNCONFIRMED alert ids: " + alertDetails.size());
         return alertDetails;
     }
 
